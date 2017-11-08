@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Candy Shop </title>
+        <style>
+            img{
+                width:350px;
+            }
+            .test{
+                background-color: #999999;
+                height: 50px;
+                width: 200px;
+            }
+            .test1{
+                background-color: rgb(194, 233, 132);
+                height: 50px;
+                width: 200px;
+            }
+            body{
+                background-color: lightblue;
+            }
+
+            .lastDiv{
+                position: relative;
+                background-color: #03A071;
+            }
+
+            .title{
+                font-size: 50px;
+            }
+
+        </style>
+        <script>
+            function total(){
+                var hershey = document.getElementById("q1");
+                var jolly = document.getElementById("q2");
+                var snickers = document.getElementById("q3");
+                var checkout = document.getElementById("checkout");
+                var build = "";
+
+
+                if (hershey.value > 0){
+                    build += hershey.value + " Hershey Bars: $" + (hershey.value*2.49).toFixed(2) + "<br>";
+                    var hersheyCost = hershey.value*2.49;
+                    var hersheyProfit = (hershey.value*2.49 - hershey.value*1.09).toFixed(2);
+                }else{
+                    var hersheyCost = 0;
+                    var hersheyProfit = 0
+                }
+
+
+                if (jolly.value > 0){
+                    build += jolly.value + " Jolly Ranchers: $" + (jolly.value*4.49).toFixed(2) + "<br>";
+                    var jollyCost = jolly.value*4.49;
+                    var jollyProfit = (jolly.value*4.49 - jolly.value*2.89).toFixed(2);
+                }else{
+                    var jollyCost = 0;
+                    var jollyProfit = 0
+                }
+
+
+                if (snickers.value > 0){
+                    build += snickers.value + " Snicker Bars: $" + (snickers.value*1.29).toFixed(2) + "<br>";
+                    var snickersCost = snickers.value*1.29;
+                    var snickersProfit = (snickers.value*1.29 - snickers.value*0.59).toFixed(2);
+                }else{
+                    var snickersCost = 0;
+                    var snickersProfit = 0
+                }
+                
+                var consoleProfit = console.log("You made $" + parseFloat(hersheyProfit + jollyProfit + snickersProfit).toFixed(2));
+                var subtotal = hersheyCost + jollyCost + snickersCost;
+
+                build += "-----------------------------------------<br>";
+                build += "Total Cost: $" + subtotal.toFixed(2);
+                checkout.innerHTML = build;
+                
+            }
+
+            function hersheytotal(){
+                var hersheyQuantitiy = document.getElementById("q1");
+                var hersheyTotal = hersheyQuantitiy.value *2.49;
+                var hersheyDiv = document.getElementById("hersheyDiv");
+                var build = "";
+                build += hersheyQuantitiy.value + " Hershey bar" + "   ($ " + hersheyTotal.toFixed(2) +")";
+                hersheyDiv.innerHTML = build;
+            }
+
+            function jolly(){
+                var jollyQuantity = document.getElementById("q2");
+                var jollyDiv = document.getElementById("jollyDiv");
+                var jollyTotal = jollyQuantity.value*4.49;
+                var build = "";
+                build += jollyQuantity.value + " Bag of Jolly Ranchers" + "     ($ " + jollyTotal.toFixed(2) + ")";
+                jollyDiv.innerHTML = build;
+            }
+            
+            function snickers(){
+                var snickersQuantitiy = document.getElementById("q3");
+                var snikersDiv = document.getElementById("snickersDiv");
+                var snickersTotal = snickersQuantitiy.value*1.29;
+                var build = "";
+                build += snickersQuantitiy.value + " Snicker Bar" + "    ($ " + snickersTotal.toFixed(2) + ")";
+                snickersDiv.innerHTML = build;
+            }
+
+            function ProceedCheckout(){
+                //Items
+                var hershey = document.getElementById("q1");
+                var jolly = document.getElementById("q2");
+                var snickers = document.getElementById("q3");
+                var message = document.getElementById("TrueOrNot");
+
+                // Shipping
+                var FullName = document.getElementById("FullName");
+                var streetAddress = document.getElementById("streetAddress");
+                var Apt = document.getElementById("Apt");
+                var ZipCode = document.getElementById("ZipCode");
+                var State = document.getElementById("State");
+
+                //Contact Info
+                var phone = document.getElementById("phone");
+                var email = document.getElementById("email");
+
+                //Paying
+                var CreditCard = document.getElementById("CreditCard");
+                var EXP = document.getElementById("EXP");
+                var SecurityCode = document.getElementById("SecurtiyCode");
+
+                build = "";
+
+                if (hershey.value > 0 || jolly.value > 0 || snickers.value){
+                    build += "You are Purchasing.... \n\n"
+                }
+
+                if (hershey.value > 0){
+                    build += hershey.value + " Hershey Bars: $" + (hershey.value*2.49).toFixed(2) + "\n";
+                    var hersheyCost = hershey.value*2.49;
+                }else{
+                    var hersheyCost = 0;
+                }
+
+
+                if (jolly.value > 0){
+                    build += jolly.value + " Jolly Ranchers: $" + (jolly.value*4.49).toFixed(2) + "\n";
+                    var jollyCost = jolly.value*4.49;
+                }else{
+                    var jollyCost = 0;
+                }
+
+
+                if (snickers.value > 0){
+                    build += snickers.value + " Snicker Bars: $" + (snickers.value*1.29).toFixed(2) + "\n";
+                    var snickersCost = snickers.value*1.29;
+                }else{
+                    var snickersCost = 0;
+                }
+
+                var subtotal = hersheyCost + jollyCost + snickersCost;
+                build += "-------------------------------- \n";
+                build += "Total Cost: $" + subtotal.toFixed(2) + "\n\n\n";
+
+                build += "Receiver: " + FullName.value + "\n";
+                build += "Shipping To: " + streetAddress.value + " " + Apt.value  + " " + ZipCode.value + " " + State.value + "\n";
+                build += "Phone #: " + phone.value;
+
+                if (hershey.value > 0 || jolly.value > 0 || snickers.value > 0){
+                    location.reload();
+                    alert(build)
+                }else{
+                    var build1 = "";
+                    build1 += "<h4> You Cannot Place an Order either because</h4>";
+                    build1 += " - You Did not make a purchase <br>";
+                    build1 += " - You did not fill out the necessary Information ";
+                    message.innerHTML = build1;
+                }
+
+            }
+
+ 
+        </script>
+
+    </head>
+    <body>
+        <p align = "center" class="title"> Candy Shop </p>
+
+        <div class = "div1">
+            <h1 align = "center"> Hershey's Cookies n Creme</h1>
+            <p align = "center">
+                <img src="hershey.jpg">
+                <br>
+                <br>
+                $2.49
+            </p>
+            <p align = "center"> Delicious choclate made with cookies and Cream
+                <br>
+                <br>
+                <input id = "q1" placeholder="Enter Quantity" type="text">
+                <button onclick = "hersheytotal()"> Calculate Cost </button>
+                <div id = "hersheyDiv" align = "center"> </div>
+                
+            </p>
+        </div>
+
+        <br>
+        <br>
+        <br>
+    
+        <div class="div2">
+            <h1 align = "center"> Jolly Ranchers</h1>
+            <p align = "center">
+                <img src = "jolly.jpeg">
+                <br>
+                <br>
+                $4.49
+            </p>
+                <p align = "center"> Awesome candies that consists of multiple flavors!
+                <br>
+                <br>
+                <input id= "q2" placeholder="Enter Quantity" type="text">
+                <button onclick = "jolly()">Calculate Cost</button>
+                <div id = "jollyDiv" align = "center"> </div>
+
+            </p>
+        </div>
+        
+        <br>
+        <br>
+        <br>
+
+        <div class="div3">
+            <h1 align = "center"> Snickers </h1>
+            <p align = "center">
+                <img src = "snickers.png">
+            </p>
+            <p align = "center">
+                1.29<br><br>
+                Chewy snicker Bars<br><br>
+                <input id= "q3" placeholder="Enter Quantity" type="text">
+                <button onclick="snickers()">Calculate Cost</button>
+                <div id = "snickersDiv" align = "center"> </div>
+            </p>
+        </div>
+
+        <br>
+        <br>
+        
+        <div class="lastDiv">
+            <br>
+            <p align = "center"> <button class = "test" onclick="total()"> <b> Subtotal </b> </button> </p>
+            <br>
+            <div id = "checkout" align = "center">  </div><br>
+
+            Full Name<br>
+            <input id= "FullName" type="text" placeholder="Last Name, First Name" size="28"> <br><br><br>
+
+            Shipping Address<br>
+            <input id= "streetAddress" placeholder="Street Address" type="text" size="35">
+            <input id= "Apt" placeholder="Apt/Suit #" type="text" size="6">
+            <input id= "ZipCode" placeholder="Zip Code" type="text" size = "8"><br><br>
+            <input id= "State" placeholder="State/Province/Region" type="text" size="20"> <br><br>
+
+            Contact Information<br>
+
+            <input id= "phone" placeholder="Phone # " type="text" size="18">
+            <input id= "email" placeholder="Email" type="text" size="33"> <br><br><br>
+
+            <h3>If Billing address is the same as Shipping address, You may skip this section</h3>
+            Billing Address<br>
+            <input id= "BillingAddress" placeholder="Street Address" type="text" size="35">
+            <input id= "BillingApt" placeholder="Apt/Suit #" type="text" size="6">
+            <input id= "BillingZipCode" placeholder="Zip Code" type="text" size = "8"><br><br>
+            <input id= "State" placeholder="State/Province/Region" type="text" size="20"><br><br>
+            Card Number<br>
+            <input id= "CreditCard" type="text" size="20"><br>
+            Expiration Date & Security Code<br>
+            <input id= "EXP" placeholder="MM/YY" type="text" size="10">
+            <input id= "SecurityCode" type="text" size="5">
+            
+
+            <br>
+            <br>
+            <br>
+            
+            <div id = "TrueOrNot"> </div>
+            <p align = "center"> <button class = "test1" onclick="ProceedCheckout()"><b>Place Order</b> </button> </p>
+            <br>
+            <div id = "checkoutButton" align = "center"> </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+    </body>
+</html> 
