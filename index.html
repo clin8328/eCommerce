@@ -27,6 +27,7 @@
 
             .title{
                 font-size: 50px;
+                color: #FF7300;
             }
 
         </style>
@@ -67,10 +68,24 @@
                     var snickersCost = 0;
                     var snickersProfit = 0
                 }
-                
-                var consoleProfit = console.log("You made $" + parseFloat(hersheyProfit + jollyProfit + snickersProfit).toFixed(2));
-                var subtotal = hersheyCost + jollyCost + snickersCost;
 
+                var consoleProfit = console.log("You made $" + parseFloat(hersheyProfit + jollyProfit + snickersProfit).toFixed(2));
+
+                if (hersheyCost + jollyCost + snickersCost > 50){
+                    var shipping = 0;
+                    build += "Free Shipping <br>"
+                }else{
+                    var shipping = parseFloat(9.99);
+                    if (hersheyCost + jollyCost + snickersCost == 0){
+                        shipping = 0.00;
+                    }
+                    build += "Shipping Fee: $" + shipping + "<br>";
+                }
+
+                var threeTotal = hersheyCost + jollyCost + snickersCost;
+                var subtotal = (threeTotal)*0.0875 + threeTotal + shipping;
+                
+                build += "Tax: $" + (threeTotal*0.0875).toFixed(2) + "<br>";
                 build += "-----------------------------------------<br>";
                 build += "Total Cost: $" + subtotal.toFixed(2);
                 checkout.innerHTML = build;
@@ -123,7 +138,7 @@
                 var email = document.getElementById("email");
 
                 //Paying
-                var CreditCard = document.getElementById("CreditCard");
+                var CreditCard = document.getElementById("CreditCardEnding");
                 var EXP = document.getElementById("EXP");
                 var SecurityCode = document.getElementById("SecurtiyCode");
 
@@ -156,22 +171,47 @@
                     var snickersCost = 0;
                 }
 
-                var subtotal = hersheyCost + jollyCost + snickersCost;
+                if (hersheyCost + jollyCost + snickersCost > 50){
+                    var shipping = 0;
+                    build += "Free Shipping \n"
+                }else{
+                    var shipping = parseFloat(9.99);
+                    if (hersheyCost + jollyCost + snickersCost == 0){
+                        shipping = 0.00;
+                    }
+                    build += "Shipping Fee: " + shipping + "\n";
+                }
+
+                var threeTotal = hersheyCost + jollyCost + snickersCost;
+                var subtotal = (threeTotal)*0.0875 + threeTotal + shipping;
+                build += "Tax: $" + (threeTotal*0.0875).toFixed(2) + "\n";
                 build += "-------------------------------- \n";
                 build += "Total Cost: $" + subtotal.toFixed(2) + "\n\n\n";
 
                 build += "Receiver: " + FullName.value + "\n";
                 build += "Shipping To: " + streetAddress.value + " " + Apt.value  + " " + ZipCode.value + " " + State.value + "\n";
-                build += "Phone #: " + phone.value;
+                build += "Phone #: " + phone.value + "\n";
+                build += "Email: " + email.value + "\n\n";
 
-                if (hershey.value > 0 || jolly.value > 0 || snickers.value > 0){
-                    location.reload();
-                    alert(build)
-                }else{
+                build += "Paying With Credit Card ending in: " + CreditCard.value + "\n\n";
+
+                build += "A confirmation has been sent to your email. Your package should arrive within 3-5 buisness day."
+                
+                var inputs = document.getElementsByTagName
+                
+                if(FullName.value == "" || streetAddress.value == "" || Apt.value == "" || ZipCode.value == "" || State.value == "" || phone.value == "" || email.value == "" || CreditCard.value == "" || EXP.value == ""){
                     var build1 = "";
                     build1 += "<h4> You Cannot Place an Order either because</h4>";
                     build1 += " - You Did not make a purchase <br>";
                     build1 += " - You did not fill out the necessary Information ";
+                    message.innerHTML = build1;
+                }else if (hershey.value > 0 || jolly.value > 0 || snickers.value > 0){
+                    location.reload();
+                        alert(build);
+                }else{
+                    var build1 = "";
+                    build1 += "<h4> You Cannot Place an Order either because</h4>";
+                    build1 += " - You Did not make a purchase <br>";
                     message.innerHTML = build1;
                 }
 
@@ -182,64 +222,73 @@
 
     </head>
     <body>
-        <p align = "center" class="title"> Candy Shop </p>
+        <div class = "allDiv">
+            <p align = "center" class="title"> Candy Shop </p>
 
-        <div class = "div1">
-            <h1 align = "center"> Hershey's Cookies n Creme</h1>
-            <p align = "center">
-                <img src="hershey.jpg">
-                <br>
-                <br>
-                $2.49
-            </p>
-            <p align = "center"> Delicious choclate made with cookies and Cream
-                <br>
-                <br>
-                <input id = "q1" placeholder="Enter Quantity" type="text">
-                <button onclick = "hersheytotal()"> Calculate Cost </button>
-                <div id = "hersheyDiv" align = "center"> </div>
-                
-            </p>
-        </div>
+            <div class = "div1">
+                <h1 align = "center"> Hershey's Cookies n Creme</h1>
+                <p align = "center">
+                    <img src="hershey.jpg">
+                    <br>
+                    <br>
+                    $2.49
+                </p>
+                <p align = "center"> 
+                        Hershey's Cookies 'n' Creme is a Flavoring of Candy Bar manufactured<br>
+                        by The Hershey Company. Hershey's Cookies 'n' Creme is a flat, white candy bar containing<br>
+                        uniformly-shaped cookie bits similar in taste and texture to an Oreo. <br>
+                    <br>
+                    <br>
+                    <input id = "q1" placeholder="Enter Quantity" type="text">
+                    <button onclick = "hersheytotal()"> Calculate Cost </button>
+                    <div id = "hersheyDiv" align = "center"> </div>
+                    
+                </p>
+            </div>
 
-        <br>
-        <br>
-        <br>
-    
-        <div class="div2">
-            <h1 align = "center"> Jolly Ranchers</h1>
-            <p align = "center">
-                <img src = "jolly.jpeg">
-                <br>
-                <br>
-                $4.49
-            </p>
-                <p align = "center"> Awesome candies that consists of multiple flavors!
-                <br>
-                <br>
-                <input id= "q2" placeholder="Enter Quantity" type="text">
-                <button onclick = "jolly()">Calculate Cost</button>
-                <div id = "jollyDiv" align = "center"> </div>
-
-            </p>
-        </div>
+            <br>
+            <br>
+            <br>
         
-        <br>
-        <br>
-        <br>
+            <div class="div2">
+                <h1 align = "center"> Jolly Ranchers</h1>
+                <p align = "center">
+                    <img src = "jolly.jpeg">
+                    <br>
+                    <br>
+                    $4.49
+                </p>
+                    <p align = "center"> 
+                        Jolly Ranchers Are Awesome candies that consists of multiple flavors! Jolly ranchers is a <br>
+                        candy for long-lasting, bold fruit flavor! Whatever life throws at you
+                    <br>
+                    <br>
+                    <input id= "q2" placeholder="Enter Quantity" type="text">
+                    <button onclick = "jolly()">Calculate Cost</button>
+                    <div id = "jollyDiv" align = "center"> </div>
 
-        <div class="div3">
-            <h1 align = "center"> Snickers </h1>
-            <p align = "center">
-                <img src = "snickers.png">
-            </p>
-            <p align = "center">
-                1.29<br><br>
-                Chewy snicker Bars<br><br>
-                <input id= "q3" placeholder="Enter Quantity" type="text">
-                <button onclick="snickers()">Calculate Cost</button>
-                <div id = "snickersDiv" align = "center"> </div>
-            </p>
+                </p>
+            </div>
+            
+            <br>
+            <br>
+            <br>
+
+            <div class="div3">
+                <h1 align = "center"> Snickers </h1>
+                <p align = "center">
+                    <img src = "snickers.png">
+                </p>
+                <p align = "center">
+                    $1.29<br><br>
+                    Chewy snicker Bars with Layers of roasted peanuts, caramel, and nougat covered in milk <br>
+                    chocolate make a Snickers bar one of the tastiest candy bars in the world.
+                    <br><br>
+                    <input id= "q3" placeholder="Enter Quantity" type="text">
+                    <button onclick="snickers()">Calculate Cost</button>
+                    <div id = "snickersDiv" align = "center"> </div>
+                </p>
+            </div>
         </div>
 
         <br>
@@ -247,6 +296,7 @@
         
         <div class="lastDiv">
             <br>
+            <b> Shipping Fee is $9.99 ,  Purchase over $50 to get free Shipping!</b>
             <p align = "center"> <button class = "test" onclick="total()"> <b> Subtotal </b> </button> </p>
             <br>
             <div id = "checkout" align = "center">  </div><br>
@@ -265,14 +315,17 @@
             <input id= "phone" placeholder="Phone # " type="text" size="18">
             <input id= "email" placeholder="Email" type="text" size="33"> <br><br><br>
 
-            <h3>If Billing address is the same as Shipping address, You may skip this section</h3>
+            <h3>Leave Billing Address blank if it's the same as your shipping address</h3>
             Billing Address<br>
             <input id= "BillingAddress" placeholder="Street Address" type="text" size="35">
             <input id= "BillingApt" placeholder="Apt/Suit #" type="text" size="6">
             <input id= "BillingZipCode" placeholder="Zip Code" type="text" size = "8"><br><br>
             <input id= "State" placeholder="State/Province/Region" type="text" size="20"><br><br>
             Card Number<br>
-            <input id= "CreditCard" type="text" size="20"><br>
+            <input id= "CreditCard1" type="text" size="1"> -
+            <input id= "CreditCard2" type="text" size="1"> -
+            <input id= "CreditCard3" type="text" size="1"> -
+            <input id= "CreditCardEnding" type="text" size="1"> <font size="2"><b>(Ex: 4444 - 4444 - 4444 - 4444)</b></font><br>
             Expiration Date & Security Code<br>
             <input id= "EXP" placeholder="MM/YY" type="text" size="10">
             <input id= "SecurityCode" type="text" size="5">
@@ -281,7 +334,7 @@
             <br>
             <br>
             <br>
-            
+
             <div id = "TrueOrNot"> </div>
             <p align = "center"> <button class = "test1" onclick="ProceedCheckout()"><b>Place Order</b> </button> </p>
             <br>
